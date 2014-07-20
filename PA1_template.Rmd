@@ -1,20 +1,168 @@
-# Reproducible Research: Peer Assessment 1
-
+---
+title: "Reproductible Research - Peer Asssesment 1"
+author: "Olivier Naeem"
+date: "Sunday, July 20, 2014"
+output:
+  html_document:
+    keep_md: yes
+---
 
 ## Loading and preprocessing the data
 
+### Configuration
+Global configuration for the R code : 
+``` {r global_options, echo=TRUE}
+library(knitr)
+library(xtable)
+opts_chunk$set(echo= TRUE, results='asis')
+```
 
+### Creating the data frame
+The file *activity.zip* is uncompressed in the **./data** directory. The **./data** directory is created if needed (this should happen only the first time).
+The *activity.csv* file is then put in the **data** variable (a data frame) : 
+
+``` {r loading_data}
+# Create the data directory if not exists
+if(!file.exists("./data")) {
+  dir.create("./data")
+}
+# Uncompress the activity.csv file into the data directory 
+unzip(zipfile = "./activity.zip", exdir = "./data", overwrite = T)
+
+# Read the CSV file
+data <- read.csv("./data/activity.csv")
+
+#Displaying first values
+xt <- xtable(data)
+print(head(xt), type="html")
+```
+
+
+### Ordering the columns
+I re-order the columns to my preference (date / interval / steps) : 
+
+``` {r preprocessing}
+data <- data[, c("date", "interval", "steps")]
+
+#Displaying first values
+xt <- xtable(data)
+print(head(xt), type="html")
+```
+
+### Creating a new dataset
+
+I aggregate all the data by date : 
+``` {r aggregate}
+data_by_day <- aggregate(steps ~ date, data = data, sum, na.rm=T)
+
+#Displaying first values
+xt <- xtable(data_by_day)
+print(head(xt), type="html")
+
+```
 
 ## What is mean total number of steps taken per day?
 
+### Number of steps taken per day 
+The total number of steps taken per day is figured out by the following histogram : 
 
+``` {r steps_per_day}
+barplot(data_by_day$steps, names.arg=data_by_day$date, main="Steps per day", xlab="Day", ylab="Nb of steps", col=rainbow(61))
+```
+
+### Mean and Median
+I calculate now the mean and the median of the dataset : 
+
+``` {r mean_and_median}
+mean_by_day <- aggregate(steps ~ date, data = data, mean, na.rm=T)
+median_by_day <- aggregate(steps ~ date, data = data, median, na.rm=T)
+data_mean_median <- cbind(mean_by_day, median=median_by_day$steps)
+
+#Displaying mean and median
+xt <- xtable(data_mean_median)
+print(xt, type="html")
+```
+
+
+``` {r plot_mean_and_median}
+plot(mean_by_day$steps, main="Plot the averages steps per day", ylab="Nb of steps")
+
+```
 
 ## What is the average daily activity pattern?
 
+### Time series
+I create a new data frame containing the average number of steps taken, averaged across all days : 
+``` {r steps_and_interval}
+data_avg_steps_by_5min <- aggregate(steps ~ interval, data = data, mean, na.rm=T)
+#Displaying first values
+xt <- xtable(data_avg_steps_by_5min)
+print(head(xt), type="html")
+```
 
+The time series plot figuring out the daily activity is : 
+``` {r plot_daily_activity}
+plot(data_avg_steps_by_5min$steps ~ data_avg_steps_by_5min$interval, main="Daily activity", ylab = "Average nb of steps", xlab = "5-minute interval", type = "l")
+```
+
+### Analysing
+
+The most active 5-min interval : 
+
+``` {r most_active_interval}
+five_min_interval <- data_avg_steps_by_5min[data_avg_steps_by_5min$steps == max(data_avg_steps_by_5min$steps), c("interval")]
+print(five_min_interval)
+```
 
 ## Imputing missing values
 
+### Calculate and report the total number of missing value
+Finding the number of missing values : 
 
+``` {r missing_values}
+nb_na_values <- colSums(is.na(data))
+
+#Displaying number of NA values
+print(nb_na_values, type="html")
+
+```
+
+### Devise a strategy for filling in all of the missing values in the dataset
+
+I propose to replace the NA values with the mean values applying to this this specific  intervall.
+
+### Create a new dataset that is equal to the original dataset but with the missing data filled in.
+
+``` {r dataset_with_no_missing_values}
+# Calculate the mean for each 5-min interval
+mean_by_interval <- aggregate(steps ~ interval, data = data, mean, na.rm=T)
+
+data_no_na_values <- data
+# Number of NA values
+sum(is.na(data_no_na_values$steps))
+
+for (i in 1:length(data$steps) ) {
+  interval <- data$interval[i]
+  if (is.na(data$steps[i])) 
+      data_no_na_values$steps[i] <- mean_by_interval$steps[mean_by_interval$interval == interval]
+}
+
+
+# Remaining NA values : should be 0 !
+sum(is.na(data_no_na_values$steps))
+
+#Displaying first values
+xt <- xtable(data_no_na_values)
+print(head(xt), type="html")
+
+```
+
+### Make a histogram of the total number of steps taken each day
+
+``` {r steps_per_day_no_na}
+data_by_day_no_na <- aggregate(steps ~ date, data = data_no_na_values, sum, na.rm=T)
+
+barplot(data_by_day_no_na$steps, names.arg=data_by_day_no_na$date, main="Steps per day", xlab="Day", ylab="Nb of steps", col=rainbow(61))
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
