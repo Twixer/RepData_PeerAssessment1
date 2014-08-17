@@ -41,7 +41,7 @@ print(head(xt), type="html")
 ```
 
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 21:47:31 2014 -->
+<!-- Sun Aug 17 21:52:19 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> steps </TH> <TH> date </TH> <TH> interval </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD align="right">  </TD> <TD> 2012-10-01 </TD> <TD align="right">   0 </TD> </TR>
@@ -66,7 +66,7 @@ print(head(xt), type="html")
 ```
 
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 21:47:31 2014 -->
+<!-- Sun Aug 17 21:52:19 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> date </TH> <TH> interval </TH> <TH> steps </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> 2012-10-01 </TD> <TD align="right">   0 </TD> <TD align="right">  </TD> </TR>
@@ -90,7 +90,7 @@ print(head(xt), type="html")
 ```
 
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 21:47:31 2014 -->
+<!-- Sun Aug 17 21:52:19 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> date </TH> <TH> steps </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> 2012-10-02 </TD> <TD align="right"> 126 </TD> </TR>
@@ -143,7 +143,7 @@ print(head(xt), type="html")
 ```
 
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 21:47:31 2014 -->
+<!-- Sun Aug 17 21:52:20 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> interval </TH> <TH> steps </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD align="right">   0 </TD> <TD align="right"> 1.72 </TD> </TR>
@@ -229,7 +229,7 @@ print(head(xt), type="html")
 ```
 
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 21:47:33 2014 -->
+<!-- Sun Aug 17 21:52:21 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> date </TH> <TH> interval </TH> <TH> steps </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> 2012-10-01 </TD> <TD align="right">   0 </TD> <TD align="right"> 1.72 </TD> </TR>
@@ -267,7 +267,8 @@ print(median(data_by_day_no_na$steps))
 ```
 
 [1] 10766
-Compare histogram :
+
+Compare histogram with and without NA values :
 
 
 ```r

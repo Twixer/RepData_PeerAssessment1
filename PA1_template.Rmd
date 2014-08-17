@@ -166,7 +166,8 @@ The median of total number of steps taken per day (with no missing values) :
 ``` {r median_no_na}
 print(median(data_by_day_no_na$steps))
 ```
-Compare histogram :
+
+Compare histogram with and without NA values :
 
 ``` {r steps_per_day_na_and_no_na}
 

@@ -85,7 +85,7 @@ data &lt;- read.csv(&quot;./data/activity.csv&quot;)
 xt &lt;- xtable(data)
 print(head(xt), type=&quot;html&quot;)</code></pre>
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 21:47:31 2014 -->
+<!-- Sun Aug 17 21:52:19 2014 -->
 <TABLE border="1">
 <TR> <TH>  </TH> <TH> 
 steps
@@ -149,7 +149,7 @@ interval
 xt &lt;- xtable(data)
 print(head(xt), type=&quot;html&quot;)</code></pre>
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 21:47:31 2014 -->
+<!-- Sun Aug 17 21:52:19 2014 -->
 <TABLE border="1">
 <TR> <TH>  </TH> <TH> 
 date
@@ -212,7 +212,7 @@ steps
 xt &lt;- xtable(data_by_day)
 print(head(xt), type=&quot;html&quot;)</code></pre>
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 21:47:31 2014 -->
+<!-- Sun Aug 17 21:52:19 2014 -->
 <TABLE border="1">
 <TR> <TH>  </TH> <TH> 
 date
@@ -293,7 +293,7 @@ steps
 xt &lt;- xtable(data_avg_steps_by_5min)
 print(head(xt), type=&quot;html&quot;)</code></pre>
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 21:47:31 2014 -->
+<!-- Sun Aug 17 21:52:20 2014 -->
 <TABLE border="1">
 <TR> <TH>  </TH> <TH> 
 interval
@@ -395,7 +395,7 @@ sum(is.na(data_no_na_values$steps))</code></pre>
 xt &lt;- xtable(data_no_na_values)
 print(head(xt), type=&quot;html&quot;)</code></pre>
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 21:47:33 2014 -->
+<!-- Sun Aug 17 21:52:21 2014 -->
 <TABLE border="1">
 <TR> <TH>  </TH> <TH> 
 date
@@ -475,7 +475,8 @@ barplot(data_by_day_no_na$steps, names.arg=data_by_day_no_na$date, main=&quot;St
 <p>[1] 10766</p>
 <p>The median of total number of steps taken per day (with no missing values) :</p>
 <pre class="r"><code>print(median(data_by_day_no_na$steps))</code></pre>
-<p>[1] 10766 Compare histogram :</p>
+<p>[1] 10766</p>
+<p>Compare histogram with and without NA values :</p>
 <pre class="r"><code>data_by_day_no_na &lt;- aggregate(steps ~ date, data = data_no_na_values, sum, na.rm=T)
 
 #barplot(data_by_day_no_na$steps, names.arg=data_by_day_no_na$date, main=&quot;Steps per day&quot;, xlab=&quot;Day&quot;, ylab=&quot;Nb of steps&quot;, col=rainbow(61))
